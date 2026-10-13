@@ -1,0 +1,81 @@
+# < Time parameters >
+# t_sim and load_perc are optional, the simulation will take place over the entirety of t_span otherwise
+dt = 1
+# t_span must be in yyyy-MM-DD or yyyy-MM-DD HH:mm format
+t_span = ['2024-06-15', '2024-06-29']
+t_sim = 48
+t_horiz = 24
+#load_perc = 95
+
+# < Situation parameters >
+location = "West Lafayette"
+objective = "Combined Price Arbitrage"
+
+# < Simulation parameters >
+# soc_0 is optional if "Omniscient Optimal" comes before "Causal MPC" and "RBC TES Baseline" in which case it decides
+# the optimal initial SOC for the following simulations
+# soc_eta_guess is optional and will default to 0.5
+controllers = ["No TES Baseline", "Omniscient Optimal", "Causal MPC"]
+# Follow the +/- sign convention for heating/cooling potential
+#soc_0 =
+# soc_eta_guess not used in solve_cvx_function = 'solve_cvx_scp'
+soc_eta_guess = 0.2
+
+# comfort_weight is optional and solve_cvx will default to hard energy balance constraints which can cause the
+# optimization to fail under extreme load conditions
+# depl_weight is optional and will default to being inactive
+# term_weight is optional and will default to a hard constraint that initial tank energy must equal final tank energy,
+# this may lead to infeasibilities
+# solver is optional and will default to 'GUROBI' for solve_cvx_function = 'solve_cvx_mixedint', 'CLARABEL' otherwise
+# See all cvxpy solvers here: https://www.cvxpy.org/tutorial/solvers/index.html
+# cvx_function is optional and will default to 'solve_cvx_simplified' which allows GSHP to DC functionality and uses
+# slack variables for discharging constraints
+# disch_viol_weight is optional and will default to 0.3
+# elec_cost_thres is optional and will default to 0, is only used in solve_cvx_function = 'solve_cvx_simplified'
+#comfort_weight = 5
+# depl_weight used only in solve_cvx_function = 'solve_cvx_simplified'
+depl_weight = 'auto'
+term_weight = 100
+# disch_viol_weight not used in solve_cvx_function = 'solve_cvx_mixedint'
+disch_viol_weight = 0.5
+#elec_cost_thres = 0.05
+#solve_cvx_function = 'solve_cvx_simplified'
+#solver =
+
+# < Datafiles >
+# weather_csv is optional but an Oikolab API key must be included in .env if it is omitted
+# rnload_col and dcload_col are optional and will default to column 0 otherwise
+weather_csv = "WestLafayette_2019_2026-06-30.csv"
+rnload_csv = 'LoadData_2019-08-21_2026-06-28_T1h.csv'
+dcload_csv = 'LoadData_2023-05-16_2026-06-28_T1h.csv'
+
+# < OpenEI United States Utility Rate Database rate labels >
+# Find labels using the lookup_rates module
+# Please note that demand charge accuracy will be influenced by dt, for highest accuracy set dt equal to the interval
+# over which demand charges are calculated (usually 0.25 hours)
+rate_label_baseline = "69c1a32d79e080761e08539c"
+rate_label_other = "69c1a4605c099d648801b56a"
+normalize_rates = true
+# Can use different rate plans for each house if desired
+#rate_label_rn_baselines =
+#rate_label_rn_other =
+#rate_label_dc_baselines =
+#rate_label_dc_other =
+
+# < Weather forecast parameters >
+# All forecast parameters are optional and default to those emulating accuweather (48 hour forecast with single decimal
+# precision and no more than 2.5 degC temperature bias which updates every four hours starting at midnight)
+#t_frcst =
+#t_update =
+#t_shift_max =
+# t_start must be in HH:mm format
+#t_start =
+#precision =
+#bias_max =
+#lead_max =
+#smooth_win =
+
+# < Random number generation >
+# seed is optional but recommended for reproducibility, a 128-bit integer is recommended and can be generated using
+# secrets.randbits(128)
+seed = 204758291928064177003005111426215036063

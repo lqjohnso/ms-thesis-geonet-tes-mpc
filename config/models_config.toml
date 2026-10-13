@@ -1,0 +1,129 @@
+[tank_real]
+# < Tank operating temperature bounds >
+# temp_min_heat and temp_max_cool are optional (defaulting to t_amb) but will impact discharging thermal power limits if
+# scalar values are given rather than coefficient arrays, causing linear fits to have an x-intercept of zero
+temp_max_heat = 55
+#temp_min_heat =
+#temp_max_cool =
+temp_min_cool = 2
+
+# < Pumping power of tank discharging >
+# pd_max_rn or pd_max_dc may be set to 0 if discharging is not possible
+pd_max_rn = 0.200
+pd_max_dc = 0.370
+
+# < Discharging thermal power limits >
+# Coefficient arrays may be given for linear polynomial fits of qd with respect to x (stored tank energy) if avaiable,
+# conversely, scalar values can be given representing qd_max at x_max, qd_min at x_min and fits will be calculated
+# automatically
+# All parameters are optional and will default to 0, but one or more values must be nonzero to enable tank discharging
+# behavior
+qd_max_rn = 11.84
+qd_min_rn = -7.64
+qd_max_dc = 11.84
+qd_min_dc = -7.64
+
+# < Tank Parameters >
+# Tank parameters are technically all optional, but one of the below methods must be chosen to calculate fundemental
+# parameters r_tank and c_tank
+# r_tank:
+#   1.) Specify directly
+#   2.) Use k_ins, l_ins, h_tank, and v_tank
+#   3.) Use q_loss
+# c_tank:
+#   1.) Specify directly
+#   2.) Use v_tank, n_tanks, and thermophysical properties of fluid (dependent on p_tank, temp_max_heat, temp_min_cool)
+#   3.) Same as 2.) but use h_tank and d_tank instead of v_tank
+# temp_ref_q_loss defaults to temp_max_heat or temp_min_cool depending on sign of q_loss, temp_amb defaults to 21 degC,
+# p_tank defaults to 1013.25 kPa, fluid defaults to "Water"
+n_tanks = 3
+#h_tank =
+#d_tank =
+#v_tank =
+#p_tank =
+q_loss = 0.09167
+#temp_ref_q_loss =
+#temp_amb =
+#k_ins =
+#l_ins =
+#fluid =
+#r_tank =
+c_tank = 5123
+
+# tank_est table can be omitted if tank_est is assumed to be tank_real, if it is included it can be filled out in the
+# same way as tank_real
+#[tank_est]
+#temp_max_heat = 55
+##temp_min_heat =
+##temp_max_cool =
+#temp_min_cool = 2
+#
+#pd_max_rn = 0.200
+#pd_max_dc = 0.370
+#
+#qd_max_rn = 11.84
+#qd_min_rn = -7.64
+#qd_max_dc = 11.84
+#qd_min_dc = -7.64
+#
+#n_tanks = 3
+#h_tank = 1.783
+#d_tank = 0.750
+#v_tank = 0.411
+##p_tank =
+##q_loss =
+##temp_ref_q_loss =
+##temp_amb =
+#k_ins = 0.03
+#l_ins = 0.075
+##fluid =
+##r_tank =
+##c_tank =
+
+
+
+[gshp]
+# cop_map_err_max and p_hp_err_max are optional and will default to 0, cop_map_err_dist and p_hp_max_err_dist are
+# optional and will default to "normal" or each other (if one is given)
+# smooth_win is optional and will default to 0
+# All q_hp_max-related variables are optional, if omitted there will be no specific thermal capacity limits on equipment,
+# only electrical power capacity, this may over/undepredict real thermal capacity because of noisy "real" COP
+cop_map_heat = [0.06540155, 1.88345263]
+cop_map_cool = [-0.0880936,  5.2579021]
+cop_map_err_max = 30
+#cop_map_err_dist =
+p_hp_err_max = 5
+#p_hp_err_dist =
+#p_hp_max =
+p_hp_max_heat = [0.01365974, 5.77127058]
+p_hp_max_cool = [-0.04585632, 12.31045772]
+smooth_win = 6
+#p_aux_max =
+#q_hp_max =
+q_hp_max_heat = [0.3181, 12.42838]
+q_hp_max_cool = [-0.04586, 12.31046]
+temp_egl_map = [-0.000323096083588, 0.014381154397145, -0.184333834842107, 1.361323240488098, 5.662355262553675]
+
+[ashp]
+cop_map_heat = [0.0008966, 0.1074, 3.098]
+cop_map_cool = [0.0048, -0.4551, 13.549]
+cop_map_err_max = 15
+#cop_map_err_dist =
+p_hp_err_max = 5
+#p_hp_err_dist =
+p_hp_max = 4.5
+#p_hp_max_heat =
+#p_hp_max_cool =
+smooth_win = 6
+p_aux_max = 19.2
+
+[load_rn]
+# t_movmean is optional and will default to 0
+load_line_heat = [-0.3127, 3.6174]
+load_line_cool = [-0.2555, 4.1979]
+t_movmean = 6
+
+[load_dc]
+load_line_heat = [-0.3545, 4.8217]
+load_line_cool = [-0.6034, 10.8438]
+t_movmean = 6

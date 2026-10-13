@@ -1,0 +1,27 @@
+# data
+
+> Contains weather, electrical, and thermal data used by for the simulations in ms-thesis-geonet-tes-mpc
+
+## Filename convention for timeseries thermal and electrical data
+
+MeasurementType + {Data} + _StartDate_EndDate_ + {T} + Timestep.csv
+
+- StartDate and EndDate are in the format YYYY-MM-DD, when StartDate is the first day of the year or when EndDate is the last day of the year only YYYY is required
+- Timestep is duration in h, m, or s with identifier; for example 1h for one hour, 1m for 1 minute, 1s for 1 second. 
+
+## Filename convention for timeseries weather data
+
+Location + _StartDate_EndDate_ + {T} + Timestep + .csv
+
+### Comments on datafiles
+
+reneww_data:
+- LoadData_2019-08-21_2026-06-28_T1h.csv: ReNEWW House thermal load data generated using GSHP electrical and thermal data, uses derated univariate COP map, no moving average smoothing, and normalizes Winter 2025/2026 GSHP electrical data to previous peak
+
+dchouse_data:
+- LoadData_2023-05-16_2026-06-28_T1h.csv: DC House thermal load data generated using ASHP and auxiliary heat electrical data and Oikolab outdoor air temperature data, removes moving average smoothing for ASHP electrical data but not for auxiliary heat data
+
+weather_data: 
+All sourced from Oikolab on https://downloader.oikolab.com/app
+
+

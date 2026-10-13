@@ -1,0 +1,65 @@
+# < Plot Formatting >
+style = "nature"
+# Colors can be hex like '#E69F00', accepted matlab color like 'red', or the number of the color in cycle of style, 'C#'
+# Color cycle for Okabe-Ito is blue, vermillion, bluish green, reddish-purple, orange, sky blue, yellow (0-6)
+#heat_color =
+#cool_color =
+#energy_rate_color =
+#demand_rate_color =
+#soc_color =
+#charge_color =
+#disch_color_rn =
+#disch_color_dc =
+#ashp_color =
+#gshp_rn_color =
+gshp_dc_color = 'C4'
+#ashp_aux_color =
+#gshp_aux_color =
+#load_color =
+#sec_linestyle =
+flows_style = 'stacked_area'
+font_scale = 1.5
+linewidth = 1.75
+aspect_ratio = 0.45
+#fig_width =
+lgd_loc = 'upper center'
+# In list form
+lgd_bbox = [0.5, -0.35]
+lgd_frame = false
+#lgd_hndl_len =
+# lgd_col defaults to maximum that fit on plot if omitted
+#lgd_col =
+grid = false
+#pts =
+#date_format =
+all_pos = true
+as_subplots = false
+# subplot_aspect_ratio = "maintain" will preserve aspect_ratio for all subplots, omitting will keep use aspect_ratio
+# for overall plot, only matters if as_subplots = true
+subplot_aspect_ratio = 0.5625
+#ax_pad =
+x_ax_tight = true
+save_folder = 'output'
+# Output will overwrite existing output if the path output/save_name already exists
+save_name = 'heating_48h_sim_vfinal'
+ext = '.png'
+
+# < Plot inclusion >
+# Ensure native .toml bool (true, false) is used instead of strings
+plot_models = true
+plot_scenario = true
+plot_results = true
+soc_combined = true
+exclude_controllers_q = "No TES Baseline"
+exclude_controllers_p = "Omniscient Optimal"
+exclude_controllers_d = "Omniscient Optimal"
+show_plots = false
+
+# < Saving >
+save_models = true
+save_scenario = true
+save_results = true
+save_plots = true
+
+# < Terminal >
+print_to_terminal = true
